@@ -58,7 +58,7 @@ COMPONENTS_DIR = PROMPTS_DIR / "components"
 # Default variant used when no explicit retrieval_variant is provided.
 DEFAULT_RETRIEVAL_VARIANT = "alltools"
 
-DEFAULT_DENSE_EMBEDDING_MODEL_OPENAI = "text-embedding-3-large"
+DEFAULT_DENSE_EMBEDDING_MODEL_OPENAI = "text-embedding-v3"
 DEFAULT_DENSE_EMBEDDING_MODEL_OPENROUTER = "qwen3-embedding-8b"
 
 
@@ -466,7 +466,7 @@ RETRIEVAL_VARIANTS: Dict[str, RetrievalVariant] = {
         kb_search=PipelineSpec(
             type="embedding",
             embedder_type="openai",
-            embedder_model="text-embedding-3-large",
+            embedder_model="text-embedding-v3"
         ),
         grep=GrepSpec(),
         supports_top_k=True,
@@ -491,7 +491,7 @@ RETRIEVAL_VARIANTS: Dict[str, RetrievalVariant] = {
         kb_search=PipelineSpec(
             type="embedding",
             embedder_type="openai",
-            embedder_model="text-embedding-3-large",
+            embedder_model="text-embedding-v3",
             reranker=True,
         ),
         grep=GrepSpec(),
@@ -531,7 +531,7 @@ RETRIEVAL_VARIANTS: Dict[str, RetrievalVariant] = {
         kb_search=PipelineSpec(
             type="embedding",
             embedder_type="openai",
-            embedder_model="text-embedding-3-large",
+            embedder_model="text-embedding-v3"
         ),
         supports_top_k=True,
     ),
@@ -554,7 +554,7 @@ RETRIEVAL_VARIANTS: Dict[str, RetrievalVariant] = {
         kb_search=PipelineSpec(
             type="embedding",
             embedder_type="openai",
-            embedder_model="text-embedding-3-large",
+            embedder_model="text-embedding-v3",
             reranker=True,
         ),
         supports_top_k=True,

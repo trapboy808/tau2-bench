@@ -104,7 +104,7 @@ def get_tasks(task_split_name: Optional[str] = None) -> list[Task]:
 
     for task_file in sorted(tasks_dir.glob("task_*.json")):
         try:
-            with open(task_file, "r") as fp:
+            with open(task_file, "r", encoding="utf-8") as fp:
                 task_data = json.load(fp)
             task = Task.model_validate(task_data)
             tasks.append(task)

@@ -26,12 +26,13 @@ class OpenAIEmbedder(BaseEmbedder):
         self.model = model
         self.client = OpenAI(api_key=api_key or os.getenv("OPENAI_API_KEY"))
 
-    def embed(self, texts: List[str]) -> np.ndarray:
+    def embed(self, texts: List[str], batch_size: int = 10) -> np.ndarray:
         """
         Embed texts using OpenAI API.
 
         Args:
             texts: List of text strings to embed
+            batch_size: Maximum number of texts per API call (DashScope limits to 10)
 
         Returns:
             Array of embeddings with shape (len(texts), embedding_dim)
@@ -39,9 +40,12 @@ class OpenAIEmbedder(BaseEmbedder):
         if not texts:
             raise ValueError("No text to embed.")
 
-        response = self.client.embeddings.create(input=texts, model=self.model)
-        embeddings = [item.embedding for item in response.data]
-        return np.array(embeddings)
+        all_embeddings = []
+        for i in range(0, len(texts), batch_size):
+            batch = texts[i:i + batch_size]
+            response = self.client.embeddings.create(input=batch, model=self.model)
+            all_embeddings.extend([item.embedding for item in response.data])
+        return np.array(all_embeddings)
 
     def get_name(self) -> str:
         """Return the name of the embedder."""

@@ -84,13 +84,13 @@ class EmbeddingsCache:
     def _load_metadata(self) -> Dict:
         """Load cache metadata from disk."""
         if self.metadata_file.exists():
-            with open(self.metadata_file, "r") as f:
+            with open(self.metadata_file, "r", encoding="utf-8") as f:
                 return json.load(f)
         return {}
 
     def _save_metadata(self):
         """Save cache metadata to disk."""
-        with open(self.metadata_file, "w") as f:
+        with open(self.metadata_file, "w", encoding="utf-8") as f:
             json.dump(self.metadata, f, indent=2)
 
     def _compute_document_hash(self, documents: List[Dict[str, str]]) -> str:
@@ -614,15 +614,15 @@ def get_unique_embedder_configs_for_retrieval_configs(
         ),
         "qwen_embeddings": ("openrouter", {"model": "qwen3-embedding-8b"}),
         "qwen_embeddings_reranker": ("openrouter", {"model": "qwen3-embedding-8b"}),
-        "openai_embeddings_grep": ("openai", {"model": "text-embedding-3-large"}),
+        "openai_embeddings_grep": ("openai", {"model": "text-embedding-v3"}),
         "openai_embeddings_reranker_grep": (
             "openai",
-            {"model": "text-embedding-3-large"},
+            {"model": "text-embedding-v3"},
         ),
-        "openai_embeddings": ("openai", {"model": "text-embedding-3-large"}),
-        "openai_embeddings_reranker": ("openai", {"model": "text-embedding-3-large"}),
-        "alltools": ("openai", {"model": "text-embedding-3-large"}),
-        "AllTools": ("openai", {"model": "text-embedding-3-large"}),
+        "openai_embeddings": ("openai", {"model": "text-embedding-v3"}),
+        "openai_embeddings_reranker": ("openai", {"model": "text-embedding-v3"}),
+        "alltools": ("openai", {"model": "text-embedding-v3"}),
+        "AllTools": ("openai", {"model": "text-embedding-v3"}),
         "alltools-qwen": ("openrouter", {"model": "qwen3-embedding-8b"}),
     }
 
